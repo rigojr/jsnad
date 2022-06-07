@@ -56,6 +56,109 @@
   - It is useful when the line is buried deep in the dependency tree.
   - It is not a good practice leave `debugger` in the code, it should be used only on debugging process.
 
+# Javascript, key concepts
+
+## Data types
+- loosely typed.
+- dynamic language
+- seven primitive types, everything else is an object
+  - `null` `undefined` `number` `string` `boolean` `bigInt` `Symbol`
+- A function without `return` statement will return `undefined`.
+- `number` is double-precision point format.
+  - It allows integers and decimals.
+  - It has a range of -2^53 - 1 hasta 2^53 - 1
+- `bigInt` has not upper or lower limit.
+- `Symbols` can be used as unique identifier keys in objects.
+- The inheritance works in Javascript throughout `prototypes`
+
+## Functions
+
+- `Functions` are first class citizens in Javascript.
+  - Can be pass as arguments, can be return from another function, can be assigned to an object.
+  - Javascript treats `functions` as values, that is why `functions` are first class citizen.
+- `this` refers to the object in which the function was called, not the object in which the function was assigned to.
+  - `call` method can be used to set the `this` context. This method is used to set `this` context dynamically.
+- `lambda function` functions do not have `this` context, when `this` is referenced in side a lambda function, it will refers to the nearest parent `non-lambda function`.
+  - `lambda function` do not have `prototype`.
+
+```javascript
+// Function's call method example.
+function foo() { console.log(this.id); }
+
+const objA = { id: 999 };
+const objB = { id: 1 };
+
+foo.call(objA); // 999
+foo.call(objB); // 1
+```
+
+```javascript
+// Lambda function and this reference
+
+function foo() {
+  return (id) => console.log(this.id + id);
+}
+
+const obj = { id: 999 };
+
+foo.call(obj)(1) // 1000
+// or
+const bar = foo.call(obj);
+bar(1) // 1000
+```
+
+### Prototypal inheritance (Functional)
+- Functional approach is to use `Object.create`.
+- The `Object.create` first argument is the prototype, and the second is an optional `Properties Descriptor`
+- The `Properties Descriptor` is an object that describes the characteristics of the properties on another object.
+  - The `Object.getOwnPropertyDescriptor` can be used to get a `Property Descriptor` on any object.
+  - The `value` describes a normal property, `set` o `get` can be used to create `getter/setter` of the value. The rest of the property are associated `meta-data` property.
+    - `writable` determines whether the property can be reassigned.
+    - `enumerable` determines whether the property will be enumerated.
+    - `configurable` sets whether the property can be altered.
+    - All of these `meta-data` default to `false`.
+
+```javascript
+// Functional approach to create prototype chain.
+
+const wolf = {
+  'howl': function() { console.log(this.name + ': awo') }
+};
+
+const dog = Object.create(wolf, {
+  'woof': { 'value': function() { console.log(this.name + ': woof') } }
+});
+
+const rufus = Object.create(dog, {
+  'name': { 'value': 'Rufus' }
+});
+
+rufus.woof(); // Rufus: woof
+rufus.howl(); // Rufus awo
+
+// w/ function paradigm
+
+const wolf = {
+  'howl': function() { console.log('owo') }
+}
+
+const dog = Object.create(wolf, {
+  'woof': { 'value': function() { console.log('woof') }}
+}
+
+function createDog(name) {
+  return Object.create(dog, {
+    'name': { 'value': name }
+  });
+}
+
+const rufus = createDog('rufus');
+
+rufus.woof(); // Rufus: woof
+rufus.howl(); // Rufus awo
+
+```
+
 ## Commands
 - `node -v` `node --version`
 - `npm - v` `npm --version`
