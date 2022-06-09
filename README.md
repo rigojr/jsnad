@@ -156,9 +156,23 @@ const rufus = createDog('rufus');
 
 rufus.woof(); // Rufus: woof
 rufus.howl(); // Rufus awo
-
 ```
 
+### Prototypal inheritance (Constructor functions)
+- key words: `new keyword` `legacy code bases` `prototype` `EcmaScript 5+` `util.inherits` `ES6`.
+- Often used in legacy code bases.
+- The empty constructor function is created in order to instance an object that actually have `prototype` to complete the inheritance.
+  - This could be replace with `Dog.prototype = Object.create(Wolf.prototype)`
+- The are an utility function `util.inherits`
+  - `util.inheritance(Dog, Wolf)`
+  - Under the hood, it used `Object.setPrototypeOf(Dog.prototype, Wolf.prototype)`.
+- Check sample on `constructor-functions.js`
+
+### Prototypal inheritance (Class syntax constructors)
+- key words: `class` `OOP` `syntactic sugar` `ES6`
+- It use a `class` keyword as a syntactic sugar.
+  - It should not be confused with the `class` keyword used in OOP languages.
+- The idea is to reduce boilerplate when creating a prototype chain.
 ## Commands
 - `node -v` `node --version`
 - `npm - v` `npm --version`
