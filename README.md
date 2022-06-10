@@ -173,6 +173,29 @@ rufus.howl(); // Rufus awo
 - It use a `class` keyword as a syntactic sugar.
   - It should not be confused with the `class` keyword used in OOP languages.
 - The idea is to reduce boilerplate when creating a prototype chain.
+
+### Closure scope
+- key words: `invisible object` `naming collision`
+- When naming collision occurs, the reference to the nearest closure scope overrides the outer one.
+- Closure scopes apply in the same way to fat/flat arrow (lambda) functions.
+- Closure scopes provide encapsulation.
+- It provides a way to prototypal inheritance.
+  - Actually will be better to explain this as a way to compose objects.
+  - Remove the complexity related to prototypes, `new` and `this`.
+
+
+```javascript
+function outerFn() {
+  const foo = true;
+  function print(foo) {  console.log(foo) }
+  print(1) //prints 1
+  foo = false
+  print(2) //prints 2
+}
+
+outerFn();
+```
+
 ## Commands
 - `node -v` `node --version`
 - `npm - v` `npm --version`
