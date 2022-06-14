@@ -107,7 +107,7 @@ const bar = foo.call(obj);
 bar(1) // 1000
 ```
 
-### Prototypal inheritance (Functional)
+## Prototypal inheritance (Functional)
 - Functional approach is to use `Object.create`.
 - The `Object.create` first argument is the prototype, and the second is an optional `Properties Descriptor`
 - The `Properties Descriptor` is an object that describes the characteristics of the properties on another object.
@@ -158,7 +158,7 @@ rufus.woof(); // Rufus: woof
 rufus.howl(); // Rufus awo
 ```
 
-### Prototypal inheritance (Constructor functions)
+## Prototypal inheritance (Constructor functions)
 - key words: `new keyword` `legacy code bases` `prototype` `EcmaScript 5+` `util.inherits` `ES6`.
 - Often used in legacy code bases.
 - The empty constructor function is created in order to instance an object that actually have `prototype` to complete the inheritance.
@@ -168,13 +168,13 @@ rufus.howl(); // Rufus awo
   - Under the hood, it used `Object.setPrototypeOf(Dog.prototype, Wolf.prototype)`.
 - Check sample on `constructor-functions.js`
 
-### Prototypal inheritance (Class syntax constructors)
+## Prototypal inheritance (Class syntax constructors)
 - key words: `class` `OOP` `syntactic sugar` `ES6`
 - It use a `class` keyword as a syntactic sugar.
   - It should not be confused with the `class` keyword used in OOP languages.
 - The idea is to reduce boilerplate when creating a prototype chain.
 
-### Closure scope
+## Closure scope
 - key words: `invisible object` `naming collision`
 - When naming collision occurs, the reference to the nearest closure scope overrides the outer one.
 - Closure scopes apply in the same way to fat/flat arrow (lambda) functions.
@@ -196,6 +196,22 @@ function outerFn() {
 outerFn();
 ```
 
+# Packages & dependencies
+- A package could be for Node, for frontend(web browser) or both.
+- Semver range version.
+- `package-lock=false` in `.npmrc` will turn off the automatic generation for the `package-locl.json`.
+- The `package.json` should be the source of truth.
+- Only top level development denpendencies are installed. The development dependencies of sub-dependencies will not be installed.
+- `--production` flag can be used with `npm install` in order to ignore development dependencies.
+- About Semver range
+  - Major is the left number and indicates a change of behavior breakes an API.
+  - Minor is the middle number, indicates that a package has been extended, and it is fully backwards compatible.
+  - Patch is the right-most number and indicates that a bug has been fixed.
+  - Semver allows a flexible version strategy.
+  - Using `^` caret character the same as using x in the Minor and Patch position.
+- There are a `"bin"` field in the `package.json` that allows to define the associate namespace with a Node program script of the package.
+  - There are a folder inside `node_modules`, `.bin` with all commands that could be execute as a Nde program.
+- `npm test` and `npm start` are dedicates npm namespaces.
 ## Commands
 - `node -v` `node --version`
 - `npm - v` `npm --version`
@@ -209,3 +225,10 @@ outerFn();
 - `node --stack-trace-limit=N foo.js`
 - `node --inspect foo.js`
 - `node --inspect-brk foo.js`
+- `npm help`
+- `npm [COMMAND] -h`
+- `npm init`
+- `npm init -y`
+- `npm ls`
+- `npm ls --depth=[lvl]`
+- `npm install --save-dev [PACKAGE]`
