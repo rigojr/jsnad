@@ -212,6 +212,21 @@ outerFn();
 - There are a `"bin"` field in the `package.json` that allows to define the associate namespace with a Node program script of the package.
   - There are a folder inside `node_modules`, `.bin` with all commands that could be execute as a Nde program.
 - `npm test` and `npm start` are dedicates npm namespaces.
+
+# Node's module systems
+- `require` function looks for the packages into `node_modules`, once found returns the exportated value from the main file expressed in the `package.json`.
+- There are `package module` and `local module`.
+- It is possible to set a module to behave as a program and as a module.
+- CommonJS is the regular javascript, it is the specification used by node.
+- ESM or EcmaScript Modules is an specification, its main goal is to allow browsers to pre-parse imports. The objective is to be statically analyzable.
+- CJS loads every module synchronously, ESM loads every module asynchronousy.
+- Faux-ESM is ESM-like syntax that would be transpiled with babel to CJS.
+  - In Node compiles to CommonJS.
+  - In browser compiles to using a bundled synchronous loader.
+  - It loads modules synchronously.
+- ESM can load CJS modules, CJS cannot load ESM modules since broke the synchronous constraint.
+  - with `dynamic import` it is possible to asynchronously load an ESM module into a CJS module.
+
 ## Commands
 - `node -v` `node --version`
 - `npm - v` `npm --version`
