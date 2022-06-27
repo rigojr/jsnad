@@ -1,37 +1,18 @@
-'use strinct'
+import { realpath } from 'fs/promises'
+import url from 'url'
+import * as format from './format.js'
 
-if (require.main === module) {
-  const pino = require('pino');
-  const logger = pino();
+const isMain = process.argv[1] &&
+  await realpath(url.fileURLToPath(import.meta.url)) ===
+  await realpath(process.argv[1])
 
-  const format = import('./format.mjs')
-    .then((format) => {
-      logger.info(format.upper('started'));
-      process.stdin.resume();
-    })
-    .catch((error) => {
-      console.log(error);
-      process.exit(1);
-    });
+if (isMain) {
+  const { default: pino } = await import('pino')
+  const logger = pino()
+  logger.info(format.upper('my-package started'))
+  process.stdin.resume()
+}
 
-} else {
-
-  const reverseAndUpper = async (str) => {
-    let format = undefined;
-
-    format = format || await import ('./format.mjs');
-
-    if (format === undefined) {
-      console.log('error, format module could not be imported.');
-
-      return null;
-    }
-
-    return format.upper(str)
-      .split('')
-      .reverse()
-      .join('')
-    }
-
-  module.exports = reverseAndUpper;
+export default (str) => {
+  return format.upper(str).split('').reverse().join('')
 }

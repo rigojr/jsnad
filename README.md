@@ -226,6 +226,14 @@ outerFn();
   - It loads modules synchronously.
 - ESM can load CJS modules, CJS cannot load ESM modules since broke the synchronous constraint.
   - with `dynamic import` it is possible to asynchronously load an ESM module into a CJS module.
+  - Adding `"type": "module",` will load ESM by default.
+- Since ESM was primarily designed by browser, modules are loaded via HTML allowing to have multiple script tags. To infer what module is the first to be executed, we can compare `process.argv[1]` with `import.meta.url`.
+  - There is no concept of a file system or namespace in ESM in the original specification. The original specification deals only with URLs, `import.meta.url` will hold a `file://` pointing to the file path of the curren module.
+  - `import maps` can be used to map namespaces and file paths to URLs.
+- Static import will assign the default export to a defined name `import url from 'url'`, in dynamic imports returns a promise that resolves to an object, to do the same is mandatory to rename the `default` property as follow `const { default: pino } = await import('pino')`.
+- ESM do not support loading modules without the full extension.
+- `require.resolve` can be used to determinate the absolute path of any required module.
+- `require` is a CJS API.
 
 ## Commands
 - `node -v` `node --version`
