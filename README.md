@@ -271,7 +271,17 @@ myEmitter.on('close', () => console.log('something'));
 - `removeAllListeners` can be used to remove all listeners without a reference to their function, it can take an event name in order to remove those listeners subscribe to it.
 - Emitting an `error` event will cause to throw an exception if no event `error` has been subscribed.
 - `AbortController` can be used for canceling promisified event listeners, like `events.once`.
-- 
+
+# Handling errors
+- Exist two types of errors, `operational errors` and `developer errors`.
+- It is possible to throw any value, no only `Errors`.
+- `Error` object handle / create the stack trace.
+- subclassing (extends) and using a code property are ways to create custom errors.
+  - with code property `Error(...).code = 'CUSTOM_CODE_ERROR'`.
+- duck typing, looking for certain qualities to determine what an object is.
+- `try catch` cannot catch errors that are thrown in a callback function that is called in the future.
+- `exceptions` occurs sync and `rejections` async.
+
 
 ## Commands
 - `node -v` `node --version`
