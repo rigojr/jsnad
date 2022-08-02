@@ -1,13 +1,20 @@
 'use strict'
 const assert = require('assert')
+const { StringDecoder } = require('string_decoder');
 const str = 'buffers are neat'
-const base64 = '' // convert str to base64
+const base64 = Buffer.from(str).toString('base64') // convert str to base64
+const decoder = new StringDecoder('base64');
 
-console.log(base64)
 
-assert.equal(base64, Buffer.from([
+const expected = Buffer.from([
   89,110,86,109,90,109,86,121,99,
   121,66,104,99,109,85,103,98,109,
-  86,104,100,65,61,61]))
+  86,104,100,65,61,61]);
+
+console.log(expected);
+console.log(base64);
+
+assert.equal(base64, expected);
+
 
 console.log('passed!')

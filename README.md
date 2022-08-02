@@ -282,6 +282,20 @@ myEmitter.on('close', () => console.log('something'));
 - `try catch` cannot catch errors that are thrown in a callback function that is called in the future.
 - `exceptions` occurs sync and `rejections` async.
 
+# Using buffers
+- essential capability.
+- `Buffer` object is an instance of `Buffer` and `Unit8Array`.
+- `Buffer slice` method return an instance that references the binary data in the original buffer that `slice` was called.
+- Using `Unit8Array` directly for `slice` creates a copy.
+- `new` for Buffer is deprecated. The correct way to instantiate `Buffers` is with `alloc` method, providing the amount of bytes to be used. `Buffer.alloc(10)`
+- With `allocUnsafe` can be allocate a buffer as unsafe.
+- `Buffer` can be created from `string` using `from` method.
+- `StringDecoder` should be used when bytes are being truncated causing encoding errors. Multiple buffers might split characters across a byte boundary.
+  - `write` will output a character only when all of the bytes representing the character have been written to the decoder.
+- `Buffer` has `toJSON` method.
+  - `object` with a `type` property set in `Buffer`.
+  - To be passed to an `object` representation in javascript is mandatory to use `JSON.parse` and the `data` property need to be passed to `Buffer.from` before complete the `deserializing`.
+- When `array` numbers is being passed to a `Buffer.from` they are converted to the corresponding byte values.
 
 ## Commands
 - `node -v` `node --version`
