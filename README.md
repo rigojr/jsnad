@@ -297,6 +297,31 @@ myEmitter.on('close', () => console.log('something'));
   - To be passed to an `object` representation in javascript is mandatory to use `JSON.parse` and the `data` property need to be passed to `Buffer.from` before complete the `deserializing`.
 - When `array` numbers is being passed to a `Buffer.from` they are converted to the corresponding byte values.
 
+# Working with Streams
+- Streams facilitate high volume data processing without requiring exorbitant compute resources. As an abstraction, streams also provide an ergonomic benefit, supporting the decoupling of application logic around real time data using a functional programming paradigm.
+- `Node` have 6 constructors for creating streams: `Stream`, `Readable`, `Writable`, `Duplex`, `Transform` and `PassThrough`.
+- Node core APIs like `process`, `net`, `http`, `fs` and `child_process` expose streams created with these constructors.
+- The main events emitted by various `Stream` are: `data`, `end`, `finish`, `close` and `error`.
+  - `finish` is emitted by `Writable` when there si nothing left to write.
+  - `close` and `error` events are common to all streams.
+- There are tow `Stream` modes: `Binary` and `Object` streams.
+  - Its mode is determinate by its `objectMode` option when the stream is instantiated. The default mode is `false` meaning is binary.
+  - Binary mode streams only read or write `Buffer` instances.
+  - Object mode streams can read or write JS Objects and all primitives except `null`.
+
+## Readable Streams
+- It could be used to read a file, data from incoming HTTP request or user input from a command prompt.
+- It inherits from the `Stream` which inherits from the `EventEmitter`. For that reason, readable stream are event emitters.
+- As soon data became available, readable stream emits `data` event.
+- `Readable.from` utility sets `objectMode` to true by default.
+
+## Writable Streams
+- It could be used to write a file, write data to an HTTP response or write to the terminal.
+- Writable streams are event emitters.
+- `decodeStrings` option can be set to `false` to avoid convert `string` to `buffer` before it becomes `chunk` to be written.
+  - This will only allow `string` or `buffer` to be written to the stream, any other javascript value will result in an error.
+- If `string` and any other javascript value want to be supported, `objectMode` set to `true` can do it.
+
 ## Commands
 - `node -v` `node --version`
 - `npm - v` `npm --version`
