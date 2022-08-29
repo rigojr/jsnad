@@ -322,6 +322,19 @@ myEmitter.on('close', () => console.log('something'));
   - This will only allow `string` or `buffer` to be written to the stream, any other javascript value will result in an error.
 - If `string` and any other javascript value want to be supported, `objectMode` set to `true` can do it.
 
+## Readable-Writable Streams
+- There are three constructors that have both `readable` and `writable` interfaces.
+  - `Duplex`, `Transform` and `PassThrough`.
+  - The most common is `Transform`
+- The `Duplex` stream constructor's prototype inherits from the `Readable` but it also mixes functionality from the `Writable`.
+  - `read` and `write` methods are implemented but does not have to be a casual relationship.
+  - Is something is written it does not necessary mean that it will result in any change to what can be read from the stream. Sometimes it is.
+  - `TCP` network is a good example of `Duplex`.
+- `Transform` inherits from the `Duplex`.
+  - The enforce a casual relationship between read and write interfaces.
+  - Compression is a good example.
+  - The relationship is create instead of supplying read and write options, a `transform` option is passed to the `Transform` constructor.
+
 ## Commands
 - `node -v` `node --version`
 - `npm - v` `npm --version`
