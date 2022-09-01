@@ -334,6 +334,72 @@ myEmitter.on('close', () => console.log('something'));
   - The enforce a casual relationship between read and write interfaces.
   - Compression is a good example.
   - The relationship is create instead of supplying read and write options, a `transform` option is passed to the `Transform` constructor.
+- The `PassThrough` constructor inherits from the `Transform` constructor.
+  - It's essentially a transform stream where no transform is applied.
+
+## Determining End-of-Stream
+- There are at least four ways for a stream to potentially become inoperative:
+  - close event
+  - error event
+  - finish event
+  - end event
+- We need to know when a stream has closed so that resources can be deallocated, otherwise memory leaks become likely.
+- Instead of listening to all four events, the `stream.finished` utility function provides a simplified way to do this.
+
+## Piping Streams
+- The concept of pipe is the same from `Bash`.
+- `process.stdout` is a writable stream.
+- The pipe method exists on Readable streams, and is passed a Writable stream.
+- Socket is a `Duplex` stream instance and that Duplex inherits from `Readable`.
+- Since pipe returns the stream passed to it, it is possible to chain pipe calls together.
+  - This is a commonly observed practice, but it's also bad practice to create pipelines this way. If a stream in the middle fails or closes for any reason, the other streams in the pipeline will not automatically close.
+  - This can create severe memory leaks and other bugs.
+  - The correct way to pipe multiple streams is to use the stream.pipeline utility function.
+- The pipeline command will call pipe on every stream passed to it
+
+# INTERACTING WITH THE FILE SYSTEM
+
+## File Paths
+- The `path` module is important for path manipulation and normalization across platforms and the `fs` module provides APIs to deal with the business of reading, writing, file system meta-data and file system watching.
+- Before locating a relative file path, we often need to know where the particular file being executed is located. For this there are two variables that are always present in every module: `__filename` and `__dirname`.
+  - The `__filename` variable holds the absolute path to the currently executing file, and the `__dirname` variable holds the absolute path to the directory that the currently executing file is in.
+- The most commonly used method of the path module is the `join` method.
+  - Apart from `path.isAbsolute` which as the name suggests will return true if a given path is absolute, the available path methods **can be broadly divided into path builders and path deconstructors**.
+  - `path.relative`: Given two absolute paths, calculates the relative path between them.
+  - The `path.resolve` function returns a string of the path that would result from navigating to each of the directories in order using the command line cd command.
+  - Resolves `..` and `.` dot in paths and strips extra slashes, for instance `path.normalize('/foo/../bar//baz')` would return `'/bar/baz'`.
+  - `path.format`: Builds a string from an object. The object shape that `path.format` accepts, corresponds to the object returned from `path.parse`.
+  - The path deconstructors are `path.parse`, `path.extname`, `path.dirname` and `path.basename`.
+
+## Reading and Writing
+- The fs module has lower level and higher level APIs.
+- The lower level API's closely mirror POSIX system calls.
+- The higher level methods for reading and writing are provided in four abstraction types:
+  - Synchronous
+  - Callback based
+  - Promise based
+  - Stream based
+- All the names of synchronous methods in the fs module end with Sync.
+  - For instance, `fs.readFileSync`. Synchronous methods will block anything else from happening in the process until they have resolved.
+  - These are convenient for loading data when a program starts, but should mostly be avoided after that.
+  - The encoding can be set in an options object to cause the `fs.readFileSync`.
+  - The `fs.writeFileSync` function takes a path and a string or buffer and blocks the process until the file has been completely written.
+    - An options object can be added, with a flag option set to 'a' to open a file in append mode.
+  - In the `readFileSync` case execution is paused until the file has been read, whereas in this example execution is free to continue while the read operation is performed. Once the read operation is completed, then the callback function that we passed as the third argument to readFile is called with the result. This allows for the process to perform other tasks (accepting an HTTP request for instance).
+- The `fs.promises` API provides most of the same asynchronous methods that are available on `fs`, but the methods return promises instead of accepting callbacks.
+ - `const { readFile, writeFile } = require('fs').promises`
+
+## File Streams
+- `fs.createReadStream` and `fs.createWriteStream`.
+- Excellent if dealing with a large file because the memory usage will stay constant as the file is read in small chunks and written in small chunks.
+
+## Reading Directories
+- Directories are a special type of file, which hold a catalog of files. Similar to files the `fs` module provides multiple ways to read a directory:
+  - Synchronous
+  - Callback-based
+  - Promise-based
+  - An async iterable that inherits from `fs.Dir`
+- For extremely large directories they can also be read as a stream using `fs.opendir`, `fs.opendirSync` or `fs.promises.opendir` method which provides a stream-like interface that we can pass to `Readable.from` to turn it into a stream.
 
 ## Commands
 - `node -v` `node --version`
