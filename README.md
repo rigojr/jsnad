@@ -401,6 +401,23 @@ myEmitter.on('close', () => console.log('something'));
   - An async iterable that inherits from `fs.Dir`
 - For extremely large directories they can also be read as a stream using `fs.opendir`, `fs.opendirSync` or `fs.promises.opendir` method which provides a stream-like interface that we can pass to `Readable.from` to turn it into a stream.
 
+## File Metadata
+- Metadata about files can be obtained with the following methods:
+  - `fs.stat`, `fs.statSync`, `fs.promises.stat`
+  - `fs.lstat`, `fs.lstatSync`, `fs.promises.lstat`
+  - `stat` follows symbolic links, and `lstat` will get meta data for symbolic links instead of following them.
+  - These methods return an `fs.Stat` instance which has a variety of properties and methods for looking up metadata about a file
+- There are four stats available for files:
+  - Access time
+  - Change time
+  - Modified time
+  - Birth time
+- The difference between change time and modified time, is modified time only applies to writes 
+
+
+## Watching
+- The `fs.watch` method is provided by Node core to tap into file system events. It is however, fairly low level and not the most friendly of APIs.
+
 ## Commands
 - `node -v` `node --version`
 - `npm - v` `npm --version`
