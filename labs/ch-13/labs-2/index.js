@@ -48,10 +48,16 @@ function exercise (project) {
       const filepath = join(project, filename)
       const stat = fs.statSync(filepath)
 
+      console.log(filename)
+
+      if (!files.has(filename)) {
+        files.add(filename)
+
+        if (!stat.isDirectory())
+          answer = filepath
+      }
       // TODO - only set the answer variable if the filepath
       // is both newly created AND does not point to a directory
-
-      answer = filepath
     } catch (err) {
 
     } 
