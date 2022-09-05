@@ -1,0 +1,20 @@
+{
+  "name": "jsnad",
+  "version": "1.0.0",
+  "description": "## About how to install and not Node.js - Do not install Node with OS package managers.   - It tends to lag the fast Node.js release cycle.   - Binary and config files could not be standardized causing compatibility issues.   - Installing global modules required `sudo`, this is not ideal since it grants root privileges to third party libraries. - The recommend way to install Node is using a version package management, on our case `nvm`.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rigojr/jsnad.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rigojr/jsnad/issues"
+  },
+  "homepage": "https://github.com/rigojr/jsnad#readme"
+}

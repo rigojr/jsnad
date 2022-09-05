@@ -459,6 +459,36 @@ myEmitter.on('close', () => console.log('something'));
   - Process uptime is the amount of seconds (with 9 decimal places) that the process has been executing for.
   - The `process.cpuUsage` function returns an object with two properties: `user` and `system`. The `user` property represents time that the Node process spent using the CPU. The `system` property represents time that the kernel spent using the CPU due to activity triggered by the process.
 
+# System Info
+- The `os` module can be used to get information about the Operating System.
+- There are two ways to identify the `Operating System` with the `os` module:
+  - The `os.platform` function which returns the same as `process.platform` property.
+  - The `os.type` function which on non-Windows systems uses the `uname` command and on Windows it uses the `ver` command, and to get the Operating System identifier.
+- The `os.uptime` function returns the amount of time the system has been running in seconds.
+- The `os.freemem` and `os.totalmem` functions return available system memory and total system memory in bytes.
+
+# Creating Child Processes
+- The Node.js core `child_process` module allows the creation of new processes with the current process as the parent. A child process can be any executable written in any language, it doesn't have to be a Node.js process.
+- The `child_process` module has the following methods, all of which spawn a process some way or another:
+  - exec & execSync
+  - spawn & spawnSync
+  - execFile & execFileSync
+  - fork
+
+## execFile & execFileSync Methods
+- The `execFile` and `execFileSync` methods are variations of the `exec` and `execSync` methods.
+- Rather than defaulting to executing a provided command in a shell, it attempts to execute the provided path to a binary executable directly.
+
+## fork Method
+- The `fork` method is a specialization of the `spawn` method. By default, it will spawn a new Node process of the currently executing JavaScript file (although a different JavaScript file to execute can be supplied). It also sets up Interprocess Communication (IPC) with the subprocess by default.
+
+## exec & execSync Methods
+- The `child_process.execSync` method is the simplest way to execute a command.
+- The `execSync` method returns a buffer containing the output (from STDOUT) of the command.
+- If we were to use `console.error` instead of `console.log`, the child process would write to `STDERR`. By default the `execSync` method redirects its `STDERR` to the parent `STDERR`, so a message would print but the output buffer would be empty.
+- if we do want to execute the node binary as a child process, it's best to refer to the full path of the node binary of the currently executing Node process. This can be found with `process.execPath`.
+
+
 ## Commands
 - `node -v` `node --version`
 - `npm - v` `npm --version`
