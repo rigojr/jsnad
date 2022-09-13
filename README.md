@@ -488,7 +488,6 @@ myEmitter.on('close', () => console.log('something'));
 - If we were to use `console.error` instead of `console.log`, the child process would write to `STDERR`. By default the `execSync` method redirects its `STDERR` to the parent `STDERR`, so a message would print but the output buffer would be empty.
 - if we do want to execute the node binary as a child process, it's best to refer to the full path of the node binary of the currently executing Node process. This can be found with `process.execPath`.
 
-
 ## Commands
 - `node -v` `node --version`
 - `npm - v` `npm --version`
