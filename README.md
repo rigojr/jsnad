@@ -79,24 +79,6 @@ function outerFn() {
 
 outerFn();
 ```
-
-# Packages & dependencies
-- A package could be for Node, for frontend(web browser) or both.
-- Semver range version.
-- `package-lock=false` in `.npmrc` will turn off the automatic generation for the `package-locl.json`.
-- The `package.json` should be the source of truth.
-- Only top level development denpendencies are installed. The development dependencies of sub-dependencies will not be installed.
-- `--production` flag can be used with `npm install` in order to ignore development dependencies.
-- About Semver range
-  - Major is the left number and indicates a change of behavior breakes an API.
-  - Minor is the middle number, indicates that a package has been extended, and it is fully backwards compatible.
-  - Patch is the right-most number and indicates that a bug has been fixed.
-  - Semver allows a flexible version strategy.
-  - Using `^` caret character the same as using x in the Minor and Patch position.
-- There are a `"bin"` field in the `package.json` that allows to define the associate namespace with a Node program script of the package.
-  - There are a folder inside `node_modules`, `.bin` with all commands that could be execute as a Nde program.
-- `npm test` and `npm start` are dedicates npm namespaces.
-
 # Node's module systems
 - `require` function looks for the packages into `node_modules`, once found returns the exportated value from the main file expressed in the `package.json`.
 - There are `package module` and `local module`.
@@ -118,16 +100,6 @@ outerFn();
 - ESM do not support loading modules without the full extension.
 - `require.resolve` can be used to determinate the absolute path of any required module.
 - `require` is a CJS API.
-
-# Asynchronous control flow
-- Node.js is a server-side javascript platform.
-- Javascript ins an event-driven language.
-- Always having an error as the first parameter is convention in Node, this practice is known as `ErrBack`.
-- A Callback is a function that will be executed in some point in the future.
-- A Promise is an object that represents an asynchronous operation.
-- with `promisify` a callback function based can be transform to a promise based method.
-- `async` and `await` are an approach that looks stylistically similar to synchronous code.
-- `AbortController` can be use to cancel asynchronous operations.
 
 # Node's Event system
 - `EventEmitter` constructor is the functional backbone of many Node core API's.
@@ -389,45 +361,6 @@ myEmitter.on('close', () => console.log('something'));
 ## Child STDIO
 - So far we've covered that the asynchronous child creation methods (`exec` and `spawn`) return a `ChildProcess` instance which has `stdin`, `stdout` and `stderr` streams representing the I/O of the subprocess. This is the default behavior, but it can be altered.
 - The `stdio` option applies the same way to the `child_process.exec` function.
-
-# Writing Unit Tests
-
-## Assertions
-- An assertion checks a value for a given condition and throws if that condition is not met.
-- Assertions are the fundamental building block of unit and integration testing.
-- The core `assert` module exports a function that will throw an `AssertionError` when the value passed to it is falsy.
-- The core `assert` module has the following assertion methods:
-  - `assert.ok(val)` – the same as assert(val)
-  - `assert.equal(val1, val2)` – coercive equal, val1 == val2
-  - `assert.notEqual(val1, val2)` – coercive unequal, val1 != val2
-  - `assert.strictEqual(val1, val2)` – strict equal, val1 === val2
-  - `assert.notStrictEqual(val1, val2)` – strict unequal, val1 !== val2
-  - `assert.deepEqual(obj1, obj2)` – coercive equal for all values in an object
-  - `assert.notDeepEqual(obj1, obj2)` – coercive unequal for all values in an object
-  - `assert.deepStrictEqual(obj1, obj2)` – strict equal for all values in an object
-  - `assert.notDeepStrictEqual(obj1, obj2)` – strict unequal for all values in an object
-  - `assert.throws(function)` – assert that a function throws
-  - `assert.doesNotThrow(function)` – assert that a function doesn't throw
-  - `assert.rejects(promise|async function)` – assert promise or returned promise rejects
-  - `assert.doesNotReject(promise|async function)` – assert promise or returned promise resolves
-  - `assert.ifError(err)` – check that an error object is falsy
-  - `assert.match(string, regex)` – test a string against a regular expression
-  - `assert.doesNotMatch(string, regex)` – test that a string fails a regular expression
-  - `assert.fail()` – force an AssertionError to be thrown
-- The Node core `assert` module does not output anything for success cases there is no assert.pass method as it would be behaviorally the same as doing nothing.
-- We can group the assertions into the following categories:
-  - Truthiness (`assert` and `assert.ok`)
-  - Equality (strict and loose) and Pattern Matching (match)
-  - Deep equality (strict and loose)
-  - Errors (ifError plus throws, rejects and their antitheses)
-  - Unreachability (fail)
-- In fact, the more esoteric the assertion the less useful it is long term.
-
-## Test Harnesses
-- if one of the asserted values fails to meet a condition an `AssertionError` is thrown, which causes the process to crash.
-- we could group assertions together so that if one in a group fails, the failure is output to the terminal but the remaining groups of assertions still run. This is what test harnesses do.
-- Code coverage represents which logic paths were executed by tests.
-- it's also important to balance this with the understanding that code coverage is not the same as case coverage.
 
 ## Commands
 - `node -v` `node --version`
