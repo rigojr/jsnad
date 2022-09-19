@@ -47,6 +47,7 @@ Watching
   - Callback-based
   - Promise-based
   - An async iterable that inherits from `fs.Dir`
+- `fs.readdir()` takes the pathname as first argument and callback as its second, the callback received a list of filename strings.
 - For extremely large directories they can also be read as a stream using `fs.opendir`, `fs.opendirSync` or `fs.promises.opendir` method which provides a stream-like interface that we can pass to `Readable.from` to turn it into a stream.
 
 ## File Metadata
