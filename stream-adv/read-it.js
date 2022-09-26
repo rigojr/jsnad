@@ -20,5 +20,7 @@ class CustomReadableStream extends Readable {
 
 const myThing = new CustomReadableStream();
 
+// TODO: Consume the stream with stop mode.
+
 myThing.addContent(content);
 myThing.pipe(process.stdout);
