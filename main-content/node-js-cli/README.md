@@ -26,3 +26,13 @@ Node executable command line flags
 - All Node modules like `FileSystem` can be evaluated by its namespace `fs`.
 
 `node -p "fs.readdirSync('.').filter((f) => /.js$/.test(f))"`
+
+## Stack trace limit
+- The Stack trace is generated when an error occurs.
+- By default it only contains ten stack frames at the point where the trace occurred.
+- Its limit can be modified with `--stack-trace-limit`.
+  - This flag is part of `-v8-options`.
+- It should be kept in the default limit (10) in production environment, since could overhead the process.
+- Useful for debug process in development environment.
+
+- `node --stack-trace-limit=N foo.js`
