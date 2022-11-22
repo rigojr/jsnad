@@ -7,7 +7,7 @@
 - Events 11%
 - Child process 8%
 - error handling 8%
-- file system 8%
+- file system 8% **read dir, write file, watch and file stats**
 
 Total: 58%
 
