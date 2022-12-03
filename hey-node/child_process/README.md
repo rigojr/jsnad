@@ -1,0 +1,8 @@
+-`spawn` returns `ChildProcess`
+  - `ChildProcess` extends from `EventEmitter`
+  - events `on`, `disconnect`, `error`, `close` and `message`.
+  - `{ 'stdio': 'inherit' }` the child process inherits the main process `stdin` `stdout` `stderr`
+  - `[stdin, stdout, stderr]`
+  - `pipe` default behavior, expose stream.
+  - `ignore` no ability to expose.
+  - `inherit` inherit from parent.

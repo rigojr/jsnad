@@ -3,8 +3,6 @@ const assert = require('assert')
 const { join, basename } = require('path')
 const fs = require('fs')
 
-const { Readable, Transform, pipeline } = require('stream');
-
 const project = join(__dirname, 'project')
 
 try { fs.rmdirSync(project, {recursive: true}) } catch (err) {}
@@ -33,20 +31,20 @@ async function exercise () {
   fs.writeFileSync('out.txt', names);
 }
 
-async function exerciseWithPipeline() {
-  const readdirStream = await Readable
-    .from(await fs.promises.readdir('./project'));
+// async function exerciseWithPipeline() {
+//   const readdirStream = await Readable
+//     .from(await fs.promises.readdir('./project'));
 
-  const formattedStream = new Transform({
-    transform: (chunk, encoding, callBack) => {
-      callBack(null, chunk + ',');
-    }
-  });
+//   const formattedStream = new Transform({
+//     transform: (chunk, encoding, callBack) => {
+//       callBack(null, chunk + ',');
+//     }
+//   });
 
-  const writeableStream = fs.createWriteStream('out2.txt').write();
+//   const writeableStream = fs.createWriteStream('out.txt').write();
 
-  pipeline(readdirStream, formattedStream, writeableStream);
-}
+//   pipeline(readdirStream, formattedStream, writeableStream);
+// }
 
 exercise()
   .then(() => {
@@ -60,4 +58,4 @@ exercise()
     console.log(error);
   })
 
-  exerciseWithPipeline();
+  // exerciseWithPipeline();

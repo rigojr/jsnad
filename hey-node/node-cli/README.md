@@ -1,0 +1,4 @@
+- `--version -v`
+- `--eval -e` eval do not print
+- `--print -p` eval and print
+- `--check -c`

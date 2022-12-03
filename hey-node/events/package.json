@@ -1,0 +1,20 @@
+{
+  "name": "events",
+  "version": "1.0.0",
+  "description": "- `EventEmitter` module in node.js core modules.",
+  "main": "my-event-emitter.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test:watch": "jest --watchAll",
+    "test": "echo 'test'",
+    "lint": "echo 'lint'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.3.1"
+  }
+}

@@ -1,0 +1,6 @@
+- `EventEmitter` module in node.js core modules.
+- `addListener` `on`
+- `once`
+- `emit`
+- `removeListener`
+- `removeAllListeners`
