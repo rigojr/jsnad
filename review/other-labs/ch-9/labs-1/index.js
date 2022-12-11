@@ -16,6 +16,7 @@ function listener () {
     console.log('passed!')
   }, 250)
 }
+ee.once('tick', listener);
 
 
 

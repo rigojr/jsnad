@@ -51,7 +51,16 @@ function exercise (project) {
       // TODO - only set the answer variable if the filepath
       // is both newly created AND does not point to a directory
 
-      answer = filepath
+      if (
+        !files.has(filename) &&
+        stat.isFile()
+      ) {
+        console.log(files, filename)
+        files.add(filename)
+
+        answer = filepath
+      }
+
     } catch (err) {
 
     } 

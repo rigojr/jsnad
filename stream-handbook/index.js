@@ -83,6 +83,7 @@ function writeInWritable() {
 
   setTimeout(() => {
     process.stdout.write('finishing writing\n');
+    writableFsStream.
     writableFsStream.end('beep\n');
     process.stdout.end('writing ends\n');
   }, 5000);

@@ -14,8 +14,9 @@ for (const f of files) fs.closeSync(fs.openSync(f, 'w'))
 const out = join(__dirname, 'out.txt')
 
 function exercise () {
-  // TODO read the files in the project folder
-  // and write the to the out.txt file
+  const files = fs.readdirSync(project)
+
+  fs.writeFileSync(out, files.join(','));
 }
 
 exercise()

@@ -5,19 +5,29 @@ const print = (err, contents) => {
 
 const opA = (cb) => {
   setTimeout(() => {
+    console.log('A ends');
     cb(null, 'A')
-  }, 500)
+  }, Math.floor(Math.random() * 1000))
 }
 
 const opB = (cb) => {
   setTimeout(() => {
+    console.log('B ends');
     cb(null, 'B')
-  }, 250)
+  }, Math.floor(Math.random() * 1000))
 }
 
 const opC = (cb) => {
   setTimeout(() => {
+    console.log('C ends');
     cb(null, 'C')
-  }, 125)
+  }, Math.floor(Math.random() * 1000))
 }
 
+opA((_, contentA) => {
+  opB((_, contentB) => {
+    opC((_, contentC) => {
+      console.log(contentC, contentB, contentA);
+    })
+  })
+})
